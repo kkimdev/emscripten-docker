@@ -9,10 +9,11 @@ ARG VCS_REF
 # ------------------------------------------------------------------------------
 
 ENV EMSDK /emsdk_portable
-ENV EM_CONFIG ${EMSDK}/.config
-ENV EM_CACHE ${EMSDK}/.cache
-ENV EM_PORTS ${EMSDK}/.ports
 ENV EMSCRIPTEN ${EMSDK}/sdk
+ENV EM_DATA ${EMSDK}/data
+ENV EM_CONFIG ${EM_DATA}/.config
+ENV EM_CACHE ${EM_DATA}/.cache
+ENV EM_PORTS ${EM_DATA}/.ports
 
 # ------------------------------------------------------------------------------
 
@@ -29,6 +30,9 @@ LABEL maintainer="kontakt@trzeci.eu" \
 
 RUN echo "\n## Start building" \
     \
+&&  echo "\n## Create user: emscripten:emscripten" \
+&&  groupadd emscripten && useradd --create-home --home-dir /home/emscripten -g emscripten emscripten \
+    \
 &&  echo "\n## Update and install packages" \
 &&  apt-get -qq -y update && apt-get -qq install -y --no-install-recommends \
         wget \
@@ -36,6 +40,7 @@ RUN echo "\n## Start building" \
         ca-certificates \
         build-essential \
         python \
+        python-pip \
     \
 &&  echo "\n## Installing CMake" \
 &&  wget https://cmake.org/files/v3.6/cmake-3.6.3-Linux-x86_64.sh -q \
@@ -47,6 +52,7 @@ RUN echo "\n## Start building" \
 &&  echo $EMSCRIPTEN_SDK | sed  's/.\+-\([0-9]\+\.[0-9]\+\.[0-9]\+\).\+/\1/g' > emscripten-tags.txt \
     \
 &&  echo "\n## Compile Emscripten" \
+&&  mkdir -p ${EM_DATA}} \
 &&  ./emsdk install node-4.1.1-64bit > /dev/null \
 &&  ./emsdk install --build=MinSizeRel $EMSCRIPTEN_SDK \
     \
@@ -166,11 +172,12 @@ RUN echo "\n## Start building" \
 &&  rm -rf /usr/share/man/??_* \
 &&  cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/ \
     \
-&&  echo "\n## Create mock entrypoint (compatibiluty)" \
-&&  printf '#!/bin/bash\nexec "$@"\n'                           > /entrypoint \
+&&  echo "\n## Create a mock entrypoint (compatibility)" \
+&&  printf '#!/bin/bash\nexec "$@"\n' > /entrypoint \
 &&  chmod 777 /entrypoint \
-&&  chmod -R 775 ${EM_CACHE}* \
+&&  chmod -R 775 ${EM_DATA} \
     \
 &&  echo "\n## Done"
 
+USER emscripten
 WORKDIR /src
