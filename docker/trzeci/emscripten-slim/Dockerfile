@@ -30,8 +30,9 @@ LABEL maintainer="kontakt@trzeci.eu" \
 
 RUN echo "\n## Start building" \
     \
-&&  echo "\n## Create a stabdard user: emscripten" \
-&&  groupadd emscripten && useradd --create-home --home-dir /home/emscripten -g emscripten emscripten \
+&&  echo "\n## Create a standard user: emscripten" \
+&&  useradd -ms /bin/bash emscripten \
+&&  mkdir -p /home/emscripten && chmod -R 777 /home/emscripten \
     \
 &&  echo "\n## Update and install packages" \
 &&  apt-get -qq -y update && apt-get -qq install -y --no-install-recommends \
@@ -179,5 +180,4 @@ RUN echo "\n## Start building" \
     \
 &&  echo "\n## Done"
 
-USER emscripten
 WORKDIR /src
