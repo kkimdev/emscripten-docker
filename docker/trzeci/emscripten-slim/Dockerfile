@@ -30,7 +30,7 @@ LABEL maintainer="kontakt@trzeci.eu" \
 
 RUN echo "\n## Start building" \
     \
-&&  echo "\n## Create user: emscripten:emscripten" \
+&&  echo "\n## Create a stabdard user: emscripten" \
 &&  groupadd emscripten && useradd --create-home --home-dir /home/emscripten -g emscripten emscripten \
     \
 &&  echo "\n## Update and install packages" \
@@ -52,7 +52,7 @@ RUN echo "\n## Start building" \
 &&  echo $EMSCRIPTEN_SDK | sed  's/.\+-\([0-9]\+\.[0-9]\+\.[0-9]\+\).\+/\1/g' > emscripten-tags.txt \
     \
 &&  echo "\n## Compile Emscripten" \
-&&  mkdir -p ${EM_DATA}} \
+&&  mkdir -p ${EM_DATA} \
 &&  ./emsdk install node-4.1.1-64bit > /dev/null \
 &&  ./emsdk install --build=MinSizeRel $EMSCRIPTEN_SDK \
     \
@@ -175,7 +175,7 @@ RUN echo "\n## Start building" \
 &&  echo "\n## Create a mock entrypoint (compatibility)" \
 &&  printf '#!/bin/bash\nexec "$@"\n' > /entrypoint \
 &&  chmod 777 /entrypoint \
-&&  chmod -R 775 ${EM_DATA} \
+&&  chmod -R 777 ${EM_DATA} \
     \
 &&  echo "\n## Done"
 

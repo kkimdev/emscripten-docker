@@ -393,6 +393,8 @@ def build(args):
             defer_push(image_id)
         else:
             log("{} - FAIL".format(image_id), True)
+            if args.fast_fail:
+                exit(1)
             
 
 def test(args):
@@ -429,6 +431,7 @@ if __name__ == "__main__":
     parser_build.add_argument("--update", action="store_true", help="Update docker images that are arleady created and pushed")
     parser_build.add_argument("--branches", action="store_true", help="Update master and incomming images")
     parser_build.add_argument("--releases", action="store_true", help="Update released SDKs")
+    parser_build.add_argument("--fast-fail", action="store_true", help="Stops queue after first failure")
     
     parser_test = subparsers.add_parser("test", help="Test given tag(s) with Emscripten and WebAssembly compatibility")
     parser_test.set_defaults(function=test)
