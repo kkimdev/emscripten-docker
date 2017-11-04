@@ -206,7 +206,10 @@ class EmscriptenTester:
         for test in tests:
             log("Perform test `%s`" % test)
             log("[TEST] %s" % test)
-            p = subprocess.Popen(["docker run --rm -v $(pwd):/src {id} {test}".format(id=id, test=test)],
+            p = subprocess.Popen(["docker", "run", "--rm",
+                "-v", "$(pwd):/src",
+                "-u", "emscripten",
+                id, test],
                 shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,

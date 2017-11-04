@@ -30,9 +30,9 @@ LABEL maintainer="kontakt@trzeci.eu" \
 
 RUN echo "\n## Start building" \
     \
-&&  echo "\n## Create a standard user: emscripten" \
-&&  useradd -ms /bin/bash emscripten \
-&&  mkdir -p /home/emscripten && chmod -R 777 /home/emscripten \
+&&  echo "\n## Create a standard user: emscripten:emscripten" \
+&&  groupadd --gid 1000 emscripten \
+&&  useradd --uid 1000 --gid emscripten --shell /bin/bash --create-home emscripten \
     \
 &&  echo "\n## Update and install packages" \
 &&  apt-get -qq -y update && apt-get -qq install -y --no-install-recommends \
