@@ -16,7 +16,7 @@ Each tag was build from one [Dockerfile](https://github.com/asRIA/emscripten-doc
 ## Tag schema
 
 ### latest
-The default version (aka `latest`) points at the [latest tagged release](https://github.com/kripken/emscripten/releases) by Emscripten. 
+The default version (aka `latest`) points at [the latest tagged release](https://github.com/kripken/emscripten/releases) by Emscripten. 
 
 ### Version release
 `sdk-tag-{VERSION}-{BITS}`
@@ -33,7 +33,7 @@ Example: `sdk-master-32bit`
 
 ## Usage
 Start volume should be mounted in `/src`. 
-For start point every Emscripten command is available. For the instance: emcc, em++, emmake, emar etc.
+For start point every Emscripten command is available. For the instance: `emcc`, `em++`, `emmake`, `emar` etc.
 
 To compile a single file:
 `docker run --rm -v $(pwd):/src trzeci/emscripten-slim emcc helloworld.cpp -o helloworld.js`

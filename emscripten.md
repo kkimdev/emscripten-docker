@@ -2,7 +2,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/trzeci/emscripten.svg)](https://store.docker.com/community/images/trzeci/emscripten/) [![Size](https://images.microbadger.com/badges/image/trzeci/emscripten.svg)](https://microbadger.com/images/trzeci/emscripten/)
 
 
-A complete container what is required to compile C++ code with [Emscripten](http://emscripten.org). The goal was to provide the best foundation for custom Docker images.
+A complete container what is required to compile C++ code with [Emscripten](http://emscripten.org). The goal was to provide a container what includes the most popular development packages and it's also easy to extend.
 Since tag 1.37.16 this container bases on https://hub.docker.com/r/trzeci/emscripten-slim/
 
 ## Structure
@@ -32,7 +32,7 @@ Each tag was build from [Dockerfile](https://github.com/asRIA/emscripten-docker/
 
 ## Tag schema
 ### latest
-Currently latest tag is not available. Not decided yet it should point either on the latest master, or latest official release. 
+The default version (aka `latest`) points at [the latest tagged release](https://github.com/kripken/emscripten/releases) by Emscripten. 
 
 ### Version release
 `sdk-tag-{VERSION}-{BITS}`
