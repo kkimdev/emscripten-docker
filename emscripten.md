@@ -47,12 +47,12 @@ Example: `sdk-tag-1.34.4-64bit`
 Example: `sdk-master-32bit`
 
 
-## How to use the image?
+## Usage
 Start volume should be mounted in `/src`. 
-For start point every Emscripten command is available. For the instance: emcc, em++, emmake, emar etc.
+For start point every Emscripten command is available. For the instance: `emcc`, `em++`, `emmake`, `emar` etc.
 
 To compile a single file:
-`docker run --rm -v $(pwd):/src trzeci/emscripten:sdk-tag-1.37.19-64bit emcc helloworld.cpp -o helloworld.js --closure 1`
+`docker run --rm -v $(pwd):/src trzeci/emscripten emcc helloworld.cpp -o helloworld.js --closure 1`
 
 Hello World:
 ```bash
